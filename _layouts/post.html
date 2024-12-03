@@ -1,4 +1,19 @@
----
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ page.title }}</title>
+</head>
+<body>
+  <h1>{{ page.title }}</h1>
+  <p><small>Published on {{ page.date | date: "%B %d, %Y" }}</small></p>
+  <div>{{ content }}</div>
+</body>
+</html>
+
+
+
+<!-- ---
 layout: base
 ---
 
@@ -85,4 +100,4 @@ layout: base
       {% include comments.html %}
     </div>
   </div>
-</main>
+</main> -->
