@@ -2474,7 +2474,7 @@ export class MraStorageService {
 }
 
 
- ## 4. **search SERVICE Angular**
+ ## 4. **search SERVICE Angularjs**
 
  import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
