@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Frontend paganation for Country
-subtitle: Frontend paganation for country 
+title: search Form for Country
+subtitle: search Form for country 
 gh-repo: daattali/beautiful-jekyll
 gh-badge: [star, fork, follow]
 tags: [REST, angular, paganation,Java,Spring Boot]
@@ -961,6 +961,7 @@ searchMra: environment.pgApiUrl + 'mra/search',
             return ResponseEntity.ok(response);
     }
  ## 7. **search REST Service Spring boot**
+ {: .box-success}
   public ApiResponse searchMRA(RequestDto pageRequest) throws Exception {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatPattern);
