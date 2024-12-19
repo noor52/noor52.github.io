@@ -16,7 +16,7 @@ In modern software development, building a REST API for managing data is a cruci
 
 Here’s how we can implement a simple CRUD REST API for managing countries:
 
-## 1. **Create a Country**  
+## 1. **Create rest API of Country**  
 
 To create a country, you need to send a `POST` request with the country details in the request body. Here's how you can do that:
 
@@ -60,3 +60,4 @@ public ResponseEntity<ApiResponse> deleteCountry(@PathVariable("id") Long id) {
     ApiResponse response = countryService.removeCountry(id);
     return new ResponseEntity<>(response, HttpStatus.OK);
 }
+```
