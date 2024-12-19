@@ -539,4 +539,7 @@ export class MraStorageService {
     return this.httpClient.post<MRA>(this.apiUrlforAddMra, newMra).pipe(
       catchError(this.handleError<MRA>('saveMra')) // Use correct type for error handling
     );
+  }
+}
+```
 

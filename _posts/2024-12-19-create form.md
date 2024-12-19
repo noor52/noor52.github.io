@@ -14,7 +14,8 @@ author: Noor
 
 ## 1. **Create Form**
 
- <div class="card">
+```html
+<div class="card">
   <div class="ng-Header col-xs-12">
     <i nz-icon nzType="form" nzTheme="outline"></i>
     {{ isEditMode ? "Update MRA/MOU" : "Create MRA/MOU" }}
@@ -274,7 +275,7 @@ author: Noor
 
         <div class="form-group col-md-4">
           <div class="col-md-12">
-            <nz-form-label>Access Type - 2</nz-form-label>
+            <nz-form-label>Access Type - 2</nz-form-item>
             <nz-form-item>
               <nz-form-control>
                 <nz-select formControlName="accessType2" id="accessType2" nzPlaceHolder="Select Access Type"
@@ -585,10 +586,12 @@ author: Noor
     </div>
   </ng-container>
 </nz-modal>
+```
 
-  ## 2. **search Form Angular**
+## 2. **Search Form Angular**
 
- import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+```typescript
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -1044,14 +1047,7 @@ export class CreateMraMouComponent implements OnInit {
       if (value) {
         const attachment2 = this.mraMouForm.get('attachment2')?.value;
         const attachmenttitle2 = this.mraMouForm.get('attachmentTitle2')?.value;
-        if ((
-          attachment2 === null ||
-          attachment2 === '' ||
-          attachment2 === undefined )&&(
-          attachmenttitle2 === null ||
-          attachmenttitle2 === '' ||
-          attachmenttitle2 === undefined
-        )){
+        if ((attachment2 === null || attachment2 === '' || attachment2 === undefined) && (attachmenttitle2 === null || attachmenttitle2 === '' || attachmenttitle2 === undefined)) {
           this.notification.warning('Required!', 'Enter attachmen 2 first');
         }
       }
@@ -1061,15 +1057,7 @@ export class CreateMraMouComponent implements OnInit {
       if (value) {
         const attachment3 = this.mraMouForm.get('attachment3')?.value;
         const attachmenttitle3 = this.mraMouForm.get('attachmentTitle3')?.value;
-        if ((
-          attachment3 === null ||
-          attachment3 === '' ||
-          attachment3 === undefined )&&(
-          attachmenttitle3 === null ||
-          attachmenttitle3 === '' ||
-          attachmenttitle3 === undefined
-
-        )) {
+        if ((attachment3 === null || attachment3 === '' || attachment3 === undefined) && (attachmenttitle3 === null || attachmenttitle3 === '' || attachmenttitle3 === undefined)) {
           this.notification.warning('Required!', 'Enter attachmen 3 first');
         }
       }
@@ -1079,14 +1067,7 @@ export class CreateMraMouComponent implements OnInit {
       if (value) {
         const attachment4 = this.mraMouForm.get('attachment4')?.value;
         const attachmenttitle4 = this.mraMouForm.get('attachmentTitle4')?.value;
-        if ((
-          attachment4 === null ||
-          attachment4 === '' ||
-          attachment4 === undefined )&&(
-          attachmenttitle4 === null ||
-          attachmenttitle4 === '' ||
-          attachmenttitle4 === undefined
-        )) {
+        if ((attachment4 === null || attachment4 === '' || attachment4 === undefined) && (attachmenttitle4 === null || attachmenttitle4 === '' || attachmenttitle4 === undefined)) {
           this.notification.warning('Required!', 'Enter attachmen 4 first');
         }
       }
@@ -2143,8 +2124,11 @@ export class CreateMraMouComponent implements OnInit {
     return option.nzLabel.toLowerCase().indexOf(input.toLowerCase()) >= 0;
   };
 }
+```
 
- ## 3. **Service  Angular**
+## 3. **Service  Angular**
+
+```typescript
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -2472,11 +2456,12 @@ export class MraStorageService {
       );
     }
 }
+```
 
+## 4. **search SERVICE Angularjs**
 
- ## 4. **search SERVICE Angularjs**
-
- import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+```typescript
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -2803,22 +2788,28 @@ export class MraStorageService {
       );
     }
 }
+```
 
- ## 5. ** REST API Spring boot**
-    @PostMapping("/save")
-    public ResponseEntity<?> saveMRA(@ModelAttribute @Valid MRAResponse mraResponse, BindingResult bindingResult) {
-            ApiResponse apiResponse = mraService.saveMra(mraResponse);
-            return new ResponseEntity(apiResponse, HttpStatus.OK);
-    }
+## 5. ** REST API Spring boot**
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateMRA(@PathVariable Long id, @ModelAttribute @Valid MRAResponse mraResponse, BindingResult bindingResult) {
-            ApiResponse apiResponse = mraService.updateMra(id, mraResponse);
-            return new ResponseEntity(apiResponse, HttpStatus.OK);
-    }
+```java
+@PostMapping("/save")
+public ResponseEntity<?> saveMRA(@ModelAttribute @Valid MRAResponse mraResponse, BindingResult bindingResult) {
+        ApiResponse apiResponse = mraService.saveMra(mraResponse);
+        return new ResponseEntity(apiResponse, HttpStatus.OK);
+}
 
- ## 6. ** Paganation Angular**
- <nz-card>
+@PutMapping("/update/{id}")
+public ResponseEntity<?> updateMRA(@PathVariable Long id, @ModelAttribute @Valid MRAResponse mraResponse, BindingResult bindingResult) {
+        ApiResponse apiResponse = mraService.updateMra(id, mraResponse);
+        return new ResponseEntity(apiResponse, HttpStatus.OK);
+}
+```
+
+## 6. ** Paganation Angular**
+
+```html
+<nz-card>
     <div class="ng-Header col-xs-12">
       <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
       {{ " List of MRA/MOU " }}
@@ -2966,202 +2957,209 @@ export class MraStorageService {
       </nz-table>
     </div>
   </nz-card>
+```
 
- ## 7. **search REST API Spring boot**
-     @PostMapping("/searrch")
-    public ResponseEntity<?> searchList(@RequestBody MraRequestDto mraDto) throws Exception {
-            ApiResponse response = Service.search(mraDto);
-            return ResponseEntity.ok(response);
-    }
- ## 7. **search REST Service Spring boot**
- {: .box-success}
-  public ApiResponse searchMRA(RequestDto pageRequest) throws Exception {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatPattern);
-            Pageable pageable;
+## 7. **search REST API Spring boot**
 
-            PageableRequestDTO pageRequestDTO = new PageableRequestDTO();
-            PageableRequestDTO pageSettings = new PageableRequestDTO() {{
-                setPage(0);
-                setSize(DEFAULT_PAGE_SIZE);
-            }};
+```java
+@PostMapping("/searrch")
+public ResponseEntity<?> searchList(@RequestBody MraRequestDto mraDto) throws Exception {
+        ApiResponse response = Service.search(mraDto);
+        return ResponseEntity.ok(response);
+}
+```
 
-            if (pageRequest != null && pageRequest.getPage() != null && pageRequest.getSize() != null) {
-                pageRequestDTO.setPage(pageRequest.getPage());
-                pageRequestDTO.setSize(pageRequest.getSize());
-                pageRequestDTO.setSortingKey(pageRequest.getSortingKey());
-                pageRequestDTO.setSortingValue(pageRequest.getSortingValue());
-                pageSettings = pageRequestDTO;
-            }
+## 7. **search REST Service Spring boot**
 
-            Sort.Direction sortingValue = null;
-            if ("descend".equals(pageRequest.getSortingValue())) {
-                sortingValue = Sort.Direction.DESC;
-            } else {
-                sortingValue = Sort.Direction.ASC;
-            }
+```java
+public ApiResponse searchMRA(RequestDto pageRequest) throws Exception {
+    try {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatPattern);
+        Pageable pageable;
 
-            if (pageRequest.getSortingKey() != null) {
-                pageable = PageRequest.of(pageSettings.getPage(), pageSettings.getSize(), Sort.by(sortingValue, pageRequest.getSortingKey()));
-            } else {
-                pageable = PageRequest.of(pageSettings.getPage(), pageSettings.getSize());
-            }
-            int agreementTypeIdSearch = 0;
-            int accessTypeIdSearch = 0;
-            int countryIdSearch = 0;
-            int nameOfOrganizationSearch = 0;
-            int signingDateStartSearch = 0;
-            int signingDateEndSearch = 0;
-            String nameOfOrganization = null;
-            String subjectEnglish = null;
-            int subjectEnglishSearch = 0;
+        PageableRequestDTO pageRequestDTO = new PageableRequestDTO();
+        PageableRequestDTO pageSettings = new PageableRequestDTO() {{
+            setPage(0);
+            setSize(DEFAULT_PAGE_SIZE);
+        }};
 
-            if (Objects.isNull(pageRequest.getAgreementTypeId())) {
-                agreementTypeIdSearch = 1;
-                pageRequest.setAgreementTypeId(1L);
-            }
-
-
-            if (Objects.isNull(pageRequest.getCountryId())) {
-                countryIdSearch = 1;
-                pageRequest.setCountryId(1L);
-            }
-
-            if (StringUtils.isNotEmpty(pageRequest.getNameOfOrganization())) {
-                nameOfOrganization = pageRequest.getNameOfOrganization().toLowerCase();
-            } else {
-                nameOfOrganizationSearch = 1;
-            }
-
-            if (StringUtils.isNotEmpty(pageRequest.getSubjectEnglish())) {
-                subjectEnglish = pageRequest.getSubjectEnglish().toLowerCase();
-            } else {
-                subjectEnglishSearch = 1;
-            }
-
-            LocalDateTime signingDateEnd = LocalDateTime.now();
-            LocalDateTime signingDateStart = LocalDateTime.now();
-
-            if (StringUtils.isEmpty(pageRequest.getSigningDateFrom())) {
-                signingDateStartSearch = 1;
-                pageRequest.setSigningDateFrom(String.valueOf(LocalDateTime.now()));
-            } else {
-                try {
-                    signingDateStart = LocalDateTime.parse(pageRequest.getSigningDateFrom(), formatter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (StringUtils.isEmpty(pageRequest.getSigningDateTo())) {
-                signingDateEndSearch = 1;
-                pageRequest.setSigningDateTo(String.valueOf(LocalDateTime.now()));
-            } else {
-                try {
-                    signingDateEnd = LocalDateTime.parse(pageRequest.getSigningDateTo(), formatter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            try {
-                Page<MraDto> mraInfo = mraRepository.findAllMra(
-                        pageable,
-                        agreementTypeIdSearch, pageRequest.getAgreementTypeId(),
-                        nameOfOrganizationSearch, nameOfOrganization,
-                        countryIdSearch, pageRequest.getCountryId(),
-                        subjectEnglishSearch, pageRequest.getSubjectEnglish(),
-                        signingDateStartSearch, signingDateStart,
-                        signingDateEndSearch, signingDateEnd
-                );
-                return new ApiResponse(true, "Success", mraInfo);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return new ApiResponse(false, "Could not get mra info because " + ex.getMessage());
+        if (pageRequest != null && pageRequest.getPage() != null && pageRequest.getSize() != null) {
+            pageRequestDTO.setPage(pageRequest.getPage());
+            pageRequestDTO.setSize(pageRequest.getSize());
+            pageRequestDTO.setSortingKey(pageRequest.getSortingKey());
+            pageRequestDTO.setSortingValue(pageRequest.getSortingValue());
+            pageSettings = pageRequestDTO;
         }
-    }
 
-    public ApiResponse getReport(RequestDto mraDto) {
+        Sort.Direction sortingValue = null;
+        if ("descend".equals(pageRequest.getSortingValue())) {
+            sortingValue = Sort.Direction.DESC;
+        } else {
+            sortingValue = Sort.Direction.ASC;
+        }
+
+        if (pageRequest.getSortingKey() != null) {
+            pageable = PageRequest.of(pageSettings.getPage(), pageSettings.getSize(), Sort.by(sortingValue, pageRequest.getSortingKey()));
+        } else {
+            pageable = PageRequest.of(pageSettings.getPage(), pageSettings.getSize());
+        }
+        int agreementTypeIdSearch = 0;
+        int accessTypeIdSearch = 0;
+        int countryIdSearch = 0;
+        int nameOfOrganizationSearch = 0;
+        int signingDateStartSearch = 0;
+        int signingDateEndSearch = 0;
+        String nameOfOrganization = null;
+        String subjectEnglish = null;
+        int subjectEnglishSearch = 0;
+
+        if (Objects.isNull(pageRequest.getAgreementTypeId())) {
+            agreementTypeIdSearch = 1;
+            pageRequest.setAgreementTypeId(1L);
+        }
+
+
+        if (Objects.isNull(pageRequest.getCountryId())) {
+            countryIdSearch = 1;
+            pageRequest.setCountryId(1L);
+        }
+
+        if (StringUtils.isNotEmpty(pageRequest.getNameOfOrganization())) {
+            nameOfOrganization = pageRequest.getNameOfOrganization().toLowerCase();
+        } else {
+            nameOfOrganizationSearch = 1;
+        }
+
+        if (StringUtils.isNotEmpty(pageRequest.getSubjectEnglish())) {
+            subjectEnglish = pageRequest.getSubjectEnglish().toLowerCase();
+        } else {
+            subjectEnglishSearch = 1;
+        }
+
+        LocalDateTime signingDateEnd = LocalDateTime.now();
+        LocalDateTime signingDateStart = LocalDateTime.now();
+
+        if (StringUtils.isEmpty(pageRequest.getSigningDateFrom())) {
+            signingDateStartSearch = 1;
+            pageRequest.setSigningDateFrom(String.valueOf(LocalDateTime.now()));
+        } else {
+            try {
+                signingDateStart = LocalDateTime.parse(pageRequest.getSigningDateFrom(), formatter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (StringUtils.isEmpty(pageRequest.getSigningDateTo())) {
+            signingDateEndSearch = 1;
+            pageRequest.setSigningDateTo(String.valueOf(LocalDateTime.now()));
+        } else {
+            try {
+                signingDateEnd = LocalDateTime.parse(pageRequest.getSigningDateTo(), formatter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatPattern);
-
-            int agreementTypeIdSearch = 0;
-            int accessTypeIdSearch = 0;
-            int countryIdSearch = 0;
-            int nameOfOrganizationSearch = 0;
-            int signingDateStartSearch = 0;
-            int signingDateEndSearch = 0;
-            String nameOfOrganization = null;
-
-            if (Objects.isNull(mraDto.getAgreementTypeId())) {
-                agreementTypeIdSearch = 1;
-                mraDto.setAgreementTypeId(1L);
-            }
-
-            if (Objects.isNull(mraDto.getAccessTypeId())) {
-                accessTypeIdSearch = 1;
-                mraDto.setAccessTypeId(1L);
-            }
-
-            if (Objects.isNull(mraDto.getCountryId())) {
-                countryIdSearch = 1;
-                mraDto.setCountryId(1L);
-            }
-
-            if (StringUtils.isNotEmpty(mraDto.getNameOfOrganization())) {
-                nameOfOrganization = mraDto.getNameOfOrganization().toLowerCase();
-            } else {
-                nameOfOrganizationSearch = 1;
-            }
-
-            LocalDateTime signingDateEnd = LocalDateTime.now();
-            LocalDateTime signingDateStart = LocalDateTime.now();
-
-            if (StringUtils.isEmpty(mraDto.getSigningDateFrom())) {
-                signingDateStartSearch = 1;
-                mraDto.setSigningDateFrom(String.valueOf(LocalDateTime.now()));
-            } else {
-                try {
-                    signingDateStart = LocalDateTime.parse(mraDto.getSigningDateFrom(), formatter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (StringUtils.isEmpty(mraDto.getSigningDateTo())) {
-                signingDateEndSearch = 1;
-                mraDto.setSigningDateTo(String.valueOf(LocalDateTime.now()));
-            } else {
-                try {
-                    signingDateEnd = LocalDateTime.parse(mraDto.getSigningDateTo(), formatter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            List<MraDto> mraDtoList = mraRepository.getMraReport(
-                    agreementTypeIdSearch, mraDto.getAgreementTypeId(),
+            Page<MraDto> mraInfo = mraRepository.findAllMra(
+                    pageable,
+                    agreementTypeIdSearch, pageRequest.getAgreementTypeId(),
                     nameOfOrganizationSearch, nameOfOrganization,
-                    countryIdSearch, mraDto.getCountryId(),
-                    accessTypeIdSearch, mraDto.getAccessTypeId(),
+                    countryIdSearch, pageRequest.getCountryId(),
+                    subjectEnglishSearch, pageRequest.getSubjectEnglish(),
                     signingDateStartSearch, signingDateStart,
                     signingDateEndSearch, signingDateEnd
             );
-
-            return new ApiResponse(true, "Success", mraDtoList);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return new ApiResponse(false, "Could not get mra report because " + ex.getMessage());
+            return new ApiResponse(true, "Success", mraInfo);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        return new ApiResponse(false, "Could not get mra info because " + ex.getMessage());
     }
+}
 
+public ApiResponse getReport(RequestDto mraDto) {
+    try {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatPattern);
 
- ## 7. ** REST DTO Spring boot**
+        int agreementTypeIdSearch = 0;
+        int accessTypeIdSearch = 0;
+        int countryIdSearch = 0;
+        int nameOfOrganizationSearch = 0;
+        int signingDateStartSearch = 0;
+        int signingDateEndSearch = 0;
+        String nameOfOrganization = null;
 
-   @Data
+        if (Objects.isNull(mraDto.getAgreementTypeId())) {
+            agreementTypeIdSearch = 1;
+            mraDto.setAgreementTypeId(1L);
+        }
+
+        if (Objects.isNull(mraDto.getAccessTypeId())) {
+            accessTypeIdSearch = 1;
+            mraDto.setAccessTypeId(1L);
+        }
+
+        if (Objects.isNull(mraDto.getCountryId())) {
+            countryIdSearch = 1;
+            mraDto.setCountryId(1L);
+        }
+
+        if (StringUtils.isNotEmpty(mraDto.getNameOfOrganization())) {
+            nameOfOrganization = mraDto.getNameOfOrganization().toLowerCase();
+        } else {
+            nameOfOrganizationSearch = 1;
+        }
+
+        LocalDateTime signingDateEnd = LocalDateTime.now();
+        LocalDateTime signingDateStart = LocalDateTime.now();
+
+        if (StringUtils.isEmpty(mraDto.getSigningDateFrom())) {
+            signingDateStartSearch = 1;
+            mraDto.setSigningDateFrom(String.valueOf(LocalDateTime.now()));
+        } else {
+            try {
+                signingDateStart = LocalDateTime.parse(mraDto.getSigningDateFrom(), formatter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (StringUtils.isEmpty(mraDto.getSigningDateTo())) {
+            signingDateEndSearch = 1;
+            mraDto.setSigningDateTo(String.valueOf(LocalDateTime.now()));
+        } else {
+            try {
+                signingDateEnd = LocalDateTime.parse(mraDto.getSigningDateTo(), formatter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        List<MraDto> mraDtoList = mraRepository.getMraReport(
+                agreementTypeIdSearch, mraDto.getAgreementTypeId(),
+                nameOfOrganizationSearch, nameOfOrganization,
+                countryIdSearch, mraDto.getCountryId(),
+                accessTypeIdSearch, mraDto.getAccessTypeId(),
+                signingDateStartSearch, signingDateStart,
+                signingDateEndSearch, signingDateEnd
+        );
+
+        return new ApiResponse(true, "Success", mraDtoList);
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        return new ApiResponse(false, "Could not get mra report because " + ex.getMessage());
+    }
+}
+```
+
+## 7. ** REST DTO Spring boot**
+
+```java
+@Data
 public class MRAResponse {
     private Long id;
     private Long agreementTypeId;
@@ -3178,6 +3176,6 @@ public class MRAResponse {
     private MultipartFile attachment1;
     private Long attachmentId1;
 }
+```
 
-
- ## 8. **Thank you**
+## 8. **Thank you**
