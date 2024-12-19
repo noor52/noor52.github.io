@@ -13,5 +13,5 @@ What else do you need?
 
 ### My story
 
-[my profilw](https://www.linkedin.com/in/md-noor-e-alam-siddiki/)
+[my profile](https://www.linkedin.com/in/md-noor-e-alam-siddiki/)
 To be honest, I'm having some trouble remembering right now, so why don't you just watch  and it will answer **all** your questions.
