@@ -21,16 +21,18 @@ Here’s how we can implement a simple CRUD REST API for managing countries:
 To create a country, you need to send a `POST` request with the country details in the request body. Here's how you can do that:
 
 ```java
-2. Add Countries
 @PostMapping("/add-country")
 public ResponseEntity<ApiResponse> saveCountry(@RequestBody CountryDto country) {
     ApiResponse savedCountry = countryService.addCountry(country);
     return new ResponseEntity<>(savedCountry, HttpStatus.OK);
 }
+```
 
-2. Read (Get) All Countries
+## 2. **Read (Get) All Countries**  
+
 To retrieve all countries, we use the GET request. It supports pagination and sorting by various keys.
 
+```java
 @GetMapping("/get-all-countries")
 public ResponseEntity<PaginatedResponse<Country>> getAllCountries(
         @RequestParam(defaultValue = "1") int page,
@@ -42,19 +44,25 @@ public ResponseEntity<PaginatedResponse<Country>> getAllCountries(
     PaginatedResponse<Country> response = countryService.getAllCountries(page, size, sortingKey, sortingValue);
     return ResponseEntity.ok(response);
 }
+```
 
-3. Update a Country
+## 3. **Update a Country**  
+
 To update an existing country, you can send a PUT request with the updated country data.
 
+```java
 @PutMapping("/edit-country/{id}")
 public ResponseEntity<ApiResponse> editCountry(@PathVariable("id") Long id, @RequestBody CountryDto updatedCountry) {
     ApiResponse response = countryService.updateCountry(updatedCountry, id);
     return new ResponseEntity<>(response, HttpStatus.OK);
 }
+```
 
-4. Delete a Country
+## 4. **Delete a Country**  
+
 To delete a country, send a DELETE request with the country’s id.
 
+```java
 @DeleteMapping("/delete-country/{id}")
 public ResponseEntity<ApiResponse> deleteCountry(@PathVariable("id") Long id) {
     ApiResponse response = countryService.removeCountry(id);
