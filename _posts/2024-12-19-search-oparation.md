@@ -1,70 +1,85 @@
 ---
 layout: post
-title: search Form for Country
-subtitle: search Form for country 
+title: Search Form for Country
+subtitle: Search Form Implementation with Angular and Spring Boot
 gh-repo: daattali/beautiful-jekyll
 gh-badge: [star, fork, follow]
-tags: [REST, angular, paganation,Java,Spring Boot]
+tags: [REST, Angular, Pagination, Java, Spring Boot]
 comments: true
 mathjax: false
 author: Noor
 ---
 
-# **search frontend **  
+# Search Form Implementation Guide
 
-## 1. **search Form**
+## 1. Frontend Components
 
- <nz-card>
-    <div class="ng-Header col-xs-12">
-      <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
-      Searce 
-    </div>
-    <div class="searchboxAerar pt-4">
-
-      <form
-  nz-form
-  [formGroup]="searchForm"
-  class="ant-advanced-search-form"
-  (ngSubmit)="submitSearchForm()"
-  style="
-    padding: 24px;
-    background-color: #fbfbfb;
-    border: 1px solid #d9d9d9;
-    border-radius: 6px;
-  "
->
-        <div class="form-row">
-          <div class="form-group col-md-4">
-            <div class="col-md-12">
-              <nz-form-label>Agreement Type</nz-form-label>
-              <nz-form-item>
-                <nz-form-control>
-                  <nz-select nzShowSearch nzAllowClear formControlName="agreementTypeId" nzPlaceHolder="Select Agreement Type">
-                    <nz-option
-                    *ngFor="let agreetype of agreementType"
-                    [nzLabel]="agreetype.agreementType"
-                    [nzValue]="agreetype.id">
-                  </nz-option>
-                  </nz-select>
-                </nz-form-control>
-              </nz-form-item>
+### HTML Template
+```html
+<nz-card>
+  <div class="ng-Header col-xs-12">
+    <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+    Search
+  </div>
+  <!-- Search form implementation -->
+   <div class="card">
+    <nz-card>
+      <div class="ng-Header col-xs-12">
+        <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+        Search 
+      </div>
+      <div class="searchboxAerar pt-4">
+        <form
+          nz-form
+          [formGroup]="searchForm"
+          class="ant-advanced-search-form"
+          (ngSubmit)="submitSearchForm()"
+          style="
+            padding: 24px;
+            background-color: #fbfbfb;
+            border: 1px solid #d9d9d9;
+            border-radius: 6px;
+          "
+        >
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <div class="col-md-12">
+                <nz-form-label>Agreement Type</nz-form-label>
+                <nz-form-item>
+                  <nz-form-control>
+                    <nz-select 
+                      nzShowSearch 
+                      nzAllowClear 
+                      formControlName="agreementTypeId" 
+                      nzPlaceHolder="Select Agreement Type"
+                    >
+                      <nz-option
+                        *ngFor="let agreetype of agreementType"
+                        [nzLabel]="agreetype.agreementType"
+                        [nzValue]="agreetype.id"
+                      >
+                      </nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
             </div>
-          </div>
-          <div class="form-group col-md-4">
-            <div class="col-md-12">
-              <nz-form-label>Name of Organization</nz-form-label>
-              <nz-form-item>
-                <nz-form-control>
-                  <input
-                    nz-input
-                    type="text"
-                    formControlName="nameOfOrganization"
-                    placeholder="Enter organization name"
-                  />
-                </nz-form-control>
-              </nz-form-item>
+
+            <div class="form-group col-md-4">
+              <div class="col-md-12">
+                <nz-form-label>Name of Organization</nz-form-label>
+                <nz-form-item>
+                  <nz-form-control>
+                    <input
+                      nz-input
+                      type="text"
+                      formControlName="nameOfOrganization"
+                      placeholder="Enter organization name"
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
             </div>
-          </div>
 
           <div class="form-group col-md-4">
             <div class="col-md-12">
@@ -89,74 +104,72 @@ author: Noor
             </div>
           </div>
 
-          <div class="form-group col-md-4">
-            <div class="col-md-12">
-              <nz-form-label>Subject</nz-form-label>
-              <nz-form-item>
-                <nz-form-control>
-                  <input
-                  nz-input
-                  type="text"
-                  formControlName="subjectEnglish"
-                  placeholder="Enter subject"
-                />
-                </nz-form-control>
-              </nz-form-item>
+            <div class="form-group col-md-4">
+              <div class="col-md-12">
+                <nz-form-label>Subject</nz-form-label>
+                <nz-form-item>
+                  <nz-form-control>
+                    <input
+                      nz-input
+                      type="text"
+                      formControlName="subjectEnglish"
+                      placeholder="Enter subject"
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
             </div>
-          </div>
 
-          <div class="col-md-4">
-            <nz-form-label style="margin-left: 15px"
-              >Signing Date From</nz-form-label
-            >
-            <div class="col-md-12">
-              <nz-form-item>
-                <nz-form-control
-                  [nzSpan]="null"
-                  nzHasFeedback
-                  nz-col
-                  nzErrorTip="Please insert valid Date"
-                >
-                  <nz-date-picker
-                    formControlName="signingDateFrom"
-                    placeholder="From Date"
-                    style="width: 100%"
-                    [nzDisabledDate]="disabledFutureDate"
+            <div class="col-md-4">
+              <nz-form-label style="margin-left: 15px">Signing Date From</nz-form-label>
+              <div class="col-md-12">
+                <nz-form-item>
+                  <nz-form-control
+                    [nzSpan]="null"
+                    nzHasFeedback
+                    nz-col
+                    nzErrorTip="Please insert valid Date"
                   >
-                  </nz-date-picker>
-                </nz-form-control>
-              </nz-form-item>
+                    <nz-date-picker
+                      formControlName="signingDateFrom"
+                      placeholder="From Date"
+                      style="width: 100%"
+                      [nzDisabledDate]="disabledFutureDate"
+                    >
+                    </nz-date-picker>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <nz-form-label style="margin-left: 15px">Signing Date To</nz-form-label>
+              <div class="col-md-12">
+                <nz-form-item>
+                  <nz-form-control
+                    [nzSpan]="null"
+                    nzHasFeedback
+                    nz-col
+                    nzErrorTip="Please insert valid Date"
+                  >
+                    <nz-date-picker
+                      formControlName="signingDateTo"
+                      placeholder="To Date"
+                      style="width: 100%"
+                      [nzDisabledDate]="disabledPastDate"
+                    >
+                    </nz-date-picker>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <nz-form-label style="margin-left: 15px"
-              >Signing Date To</nz-form-label
-            >
-            <div class="col-md-12">
-              <nz-form-item>
-                <nz-form-control
-                  [nzSpan]="null"
-                  nzHasFeedback
-                  nz-col
-                  nzErrorTip="Please insert valid Date"
-                >
-                  <nz-date-picker
-                    formControlName="signingDateTo"
-                    placeholder="To Date"
-                    style="width: 100%"
-                    [nzDisabledDate]="disabledPastDate"
-                  >
-                  </nz-date-picker>
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-          </div>
-        </div>
-      </form>
+        </form>
+
         <div class="d-flex flex-row-reverse">
           <div class="p-2">
             <button class="btn-dark ant-btn" (click)="onDownloadReport()">
-              <span class="ng-star-inserted"> Download Report </span>
+              <span class="ng-star-inserted">Download Report</span>
             </button>
           </div>
           <div class="p-2">
@@ -165,15 +178,18 @@ author: Noor
             </button>
           </div>
           <div class="p-2">
-            <button nz-button [nzType]="'primary'" (click)="submitSearchForm()" >Search</button>
+            <button nz-button [nzType]="'primary'" (click)="submitSearchForm()">Search</button>
           </div>
         </div>
-    </div>
-  </nz-card>
+      </div>
+    </nz-card>
+  </div>
+</nz-card>
+```
 
-  ## 2. **search Form Angular**
-
-  import { Component } from '@angular/core';
+### Component Class
+```typescript
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MraStorageService } from 'src/app/modules/mra/services/mra-storage.service';
 import { MRA } from 'src/app/modules/mra/components/model/mra.model';
@@ -455,25 +471,23 @@ export class MraListAdminComponent {
     differenceInCalendarDays(current, this.today) > 0;
 }
 
- ## 3. **search dto Angular**
+```
+
+## 2. Data Models
+
+```typescript
 export class MraInfoSearch {
   public agreementType: string;
   public organizationName: string;
   public countryName: string;
-  public accessType: string; 
-  public signingDataFrom: string;
-  public signingDataTo: string;
-  public size: number;
-  public page: number;
-  public sortingKey: string;
-  public sortingValue: string;
-  public disabled: boolean = false;
-    constructor() {}
+  // Other properties
 }
+```
 
- ## 4. **search SERVICE Angular**
+## 3. Services
 
- import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+```typescript
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -801,11 +815,172 @@ export class MraStorageService {
     }
 }
 
- ## 5. **search REST API Angular**
-searchMra: environment.pgApiUrl + 'mra/search',
+```
 
- ## 6. ** Paganation Angular**
- <nz-card>
+## 4. Backend Implementation
+
+### Controller
+```java
+@PostMapping("/search")
+public ResponseEntity<?> searchList(@RequestBody MraRequestDto mraDto) {
+    ApiResponse response = service.search(mraDto);
+    return ResponseEntity.ok(response);
+}
+```
+
+### Service Layer
+```java
+public ApiResponse searchMRA(MraRequestDto pageRequest) throws Exception {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatPattern);
+            Pageable pageable;
+
+            PageableRequestDTO pageRequestDTO = new PageableRequestDTO();
+            PageableRequestDTO pageSettings = new PageableRequestDTO() {{
+                setPage(0);
+                setSize(DEFAULT_PAGE_SIZE);
+            }};
+
+            if (pageRequest != null && pageRequest.getPage() != null && pageRequest.getSize() != null) {
+                pageRequestDTO.setPage(pageRequest.getPage());
+                pageRequestDTO.setSize(pageRequest.getSize());
+                pageRequestDTO.setSortingKey(pageRequest.getSortingKey());
+                pageRequestDTO.setSortingValue(pageRequest.getSortingValue());
+                pageSettings = pageRequestDTO;
+            }
+
+            Sort.Direction sortingValue = null;
+            if ("descend".equals(pageRequest.getSortingValue())) {
+                sortingValue = Sort.Direction.DESC;
+            } else {
+                sortingValue = Sort.Direction.ASC;
+            }
+
+            if (pageRequest.getSortingKey() != null) {
+                pageable = PageRequest.of(pageSettings.getPage(), pageSettings.getSize(), Sort.by(sortingValue, pageRequest.getSortingKey()));
+            } else {
+                pageable = PageRequest.of(pageSettings.getPage(), pageSettings.getSize());
+            }
+            int agreementTypeIdSearch = 0;
+            int accessTypeIdSearch = 0;
+            int countryIdSearch = 0;
+            int nameOfOrganizationSearch = 0;
+            int signingDateStartSearch = 0;
+            int signingDateEndSearch = 0;
+            String nameOfOrganization = null;
+            String subjectEnglish = null;
+            int subjectEnglishSearch = 0;
+
+            if (Objects.isNull(pageRequest.getAgreementTypeId())) {
+                agreementTypeIdSearch = 1;
+                pageRequest.setAgreementTypeId(1L);
+            }
+
+
+            if (Objects.isNull(pageRequest.getCountryId())) {
+                countryIdSearch = 1;
+                pageRequest.setCountryId(1L);
+            }
+
+            if (StringUtils.isNotEmpty(pageRequest.getNameOfOrganization())) {
+                nameOfOrganization = pageRequest.getNameOfOrganization().toLowerCase();
+            } else {
+                nameOfOrganizationSearch = 1;
+            }
+
+            if (StringUtils.isNotEmpty(pageRequest.getSubjectEnglish())) {
+                subjectEnglish = pageRequest.getSubjectEnglish().toLowerCase();
+            } else {
+                subjectEnglishSearch = 1;
+            }
+
+            LocalDateTime signingDateEnd = LocalDateTime.now();
+            LocalDateTime signingDateStart = LocalDateTime.now();
+
+            if (StringUtils.isEmpty(pageRequest.getSigningDateFrom())) {
+                signingDateStartSearch = 1;
+                pageRequest.setSigningDateFrom(String.valueOf(LocalDateTime.now()));
+            } else {
+                try {
+                    signingDateStart = LocalDateTime.parse(pageRequest.getSigningDateFrom(), formatter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (StringUtils.isEmpty(pageRequest.getSigningDateTo())) {
+                signingDateEndSearch = 1;
+                pageRequest.setSigningDateTo(String.valueOf(LocalDateTime.now()));
+            } else {
+                try {
+                    signingDateEnd = LocalDateTime.parse(pageRequest.getSigningDateTo(), formatter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            try {
+                Page<MraDto> mraInfo = mraRepository.findAllMra(
+                        pageable,
+                        agreementTypeIdSearch, pageRequest.getAgreementTypeId(),
+                        nameOfOrganizationSearch, nameOfOrganization,
+                        countryIdSearch, pageRequest.getCountryId(),
+                        subjectEnglishSearch, pageRequest.getSubjectEnglish(),
+                        signingDateStartSearch, signingDateStart,
+                        signingDateEndSearch, signingDateEnd
+                );
+                return new ApiResponse(true, "Success", mraInfo);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ApiResponse(false, "Could not get mra info because " + ex.getMessage());
+        }
+    }
+```
+
+### Repository
+```java
+@Repository
+public interface MraRepository extends JpaRepository<MRA,Long> {
+
+    @Query(value = "SELECT DISTINCT m.id as id, " +
+            "ag.agreement_type as agreementType, " +
+            "m.subject_english as subjectEnglish, " +
+            "m.name_of_organization_english as nameOfOrganizationEnglish , " +
+            "m.date_of_signature as dateOfSignature, " +
+            "c.country as country " +
+            "FROM mra m " +
+            "LEFT JOIN country c ON m.country_id = c.id " +
+            "LEFT JOIN attachment a ON m.id = a.mra_id " +
+            "LEFT JOIN agreement_type ag ON m.agreement_type_id = ag.id " +
+            "WHERE (1 = :agreementTypeIdSearch OR m.agreement_type_id = :agreementTypeId) " +
+            "AND (1 = :nameOfOrganizationSearch OR LOWER(m.name_of_organization_english) LIKE CONCAT('%', CAST(:nameOfOrganization AS text), '%')) " +
+            "AND (1 = :countryIdSearch OR m.country_id = :countryId) " +
+            "AND (1 = :subjectEnglishSearch OR LOWER(m.subject_english) LIKE CONCAT('%', CAST(:subjectEnglishh AS text), '%')) " +
+            "AND (1 = :signingDateStartSearch OR CAST(m.date_of_signature AS DATE) >= CAST(:signingStartDate AS DATE)) " +
+            "AND (1 = :signingDateEndSearch OR CAST(m.date_of_signature AS DATE) <= CAST(:signingEndDate AS DATE)) ", nativeQuery = true)
+    Page<MraDto> findAllMra(Pageable pageable,
+                            @Param("agreementTypeIdSearch") int agreementTypeIdSearch,
+                            @Param("agreementTypeId") Long agreementTypeId,
+                            @Param("nameOfOrganizationSearch") int nameOfOrganizationSearch,
+                            @Param("nameOfOrganization") String nameOfOrganization,
+                            @Param("countryIdSearch") int countryIdSearch,
+                            @Param("countryId") Long countryId,
+                            @Param("subjectEnglishSearch") int subjectEnglishSearch,
+                            @Param("subjectEnglishh") String subjectEnglishh,
+                            @Param("signingDateStartSearch") int signingDateStartSearch,
+                            @Param("signingStartDate") LocalDateTime signingStartDate,
+                            @Param("signingDateEndSearch") int signingDateEndSearch,
+                            @Param("signingEndDate") LocalDateTime signingEndDate
+    );
+```
+
+## 5. Pagination Implementation
+
+```html
+<nz-card>
     <div class="ng-Header col-xs-12">
       <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
       {{ " List of MRA/MOU " }}
@@ -953,246 +1128,4 @@ searchMra: environment.pgApiUrl + 'mra/search',
       </nz-table>
     </div>
   </nz-card>
-
- ## 7. **search REST API Spring boot**
-     @PostMapping("/searrch")
-    public ResponseEntity<?> searchList(@RequestBody MraRequestDto mraDto) throws Exception {
-            ApiResponse response = Service.search(mraDto);
-            return ResponseEntity.ok(response);
-    }
- ## 7. **search REST Service Spring boot**
- {: .box-success}
-  public ApiResponse searchMRA(RequestDto pageRequest) throws Exception {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatPattern);
-            Pageable pageable;
-
-            PageableRequestDTO pageRequestDTO = new PageableRequestDTO();
-            PageableRequestDTO pageSettings = new PageableRequestDTO() {{
-                setPage(0);
-                setSize(DEFAULT_PAGE_SIZE);
-            }};
-
-            if (pageRequest != null && pageRequest.getPage() != null && pageRequest.getSize() != null) {
-                pageRequestDTO.setPage(pageRequest.getPage());
-                pageRequestDTO.setSize(pageRequest.getSize());
-                pageRequestDTO.setSortingKey(pageRequest.getSortingKey());
-                pageRequestDTO.setSortingValue(pageRequest.getSortingValue());
-                pageSettings = pageRequestDTO;
-            }
-
-            Sort.Direction sortingValue = null;
-            if ("descend".equals(pageRequest.getSortingValue())) {
-                sortingValue = Sort.Direction.DESC;
-            } else {
-                sortingValue = Sort.Direction.ASC;
-            }
-
-            if (pageRequest.getSortingKey() != null) {
-                pageable = PageRequest.of(pageSettings.getPage(), pageSettings.getSize(), Sort.by(sortingValue, pageRequest.getSortingKey()));
-            } else {
-                pageable = PageRequest.of(pageSettings.getPage(), pageSettings.getSize());
-            }
-            int agreementTypeIdSearch = 0;
-            int accessTypeIdSearch = 0;
-            int countryIdSearch = 0;
-            int nameOfOrganizationSearch = 0;
-            int signingDateStartSearch = 0;
-            int signingDateEndSearch = 0;
-            String nameOfOrganization = null;
-            String subjectEnglish = null;
-            int subjectEnglishSearch = 0;
-
-            if (Objects.isNull(pageRequest.getAgreementTypeId())) {
-                agreementTypeIdSearch = 1;
-                pageRequest.setAgreementTypeId(1L);
-            }
-
-
-            if (Objects.isNull(pageRequest.getCountryId())) {
-                countryIdSearch = 1;
-                pageRequest.setCountryId(1L);
-            }
-
-            if (StringUtils.isNotEmpty(pageRequest.getNameOfOrganization())) {
-                nameOfOrganization = pageRequest.getNameOfOrganization().toLowerCase();
-            } else {
-                nameOfOrganizationSearch = 1;
-            }
-
-            if (StringUtils.isNotEmpty(pageRequest.getSubjectEnglish())) {
-                subjectEnglish = pageRequest.getSubjectEnglish().toLowerCase();
-            } else {
-                subjectEnglishSearch = 1;
-            }
-
-            LocalDateTime signingDateEnd = LocalDateTime.now();
-            LocalDateTime signingDateStart = LocalDateTime.now();
-
-            if (StringUtils.isEmpty(pageRequest.getSigningDateFrom())) {
-                signingDateStartSearch = 1;
-                pageRequest.setSigningDateFrom(String.valueOf(LocalDateTime.now()));
-            } else {
-                try {
-                    signingDateStart = LocalDateTime.parse(pageRequest.getSigningDateFrom(), formatter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (StringUtils.isEmpty(pageRequest.getSigningDateTo())) {
-                signingDateEndSearch = 1;
-                pageRequest.setSigningDateTo(String.valueOf(LocalDateTime.now()));
-            } else {
-                try {
-                    signingDateEnd = LocalDateTime.parse(pageRequest.getSigningDateTo(), formatter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            try {
-                Page<MraDto> mraInfo = mraRepository.findAllMra(
-                        pageable,
-                        agreementTypeIdSearch, pageRequest.getAgreementTypeId(),
-                        nameOfOrganizationSearch, nameOfOrganization,
-                        countryIdSearch, pageRequest.getCountryId(),
-                        subjectEnglishSearch, pageRequest.getSubjectEnglish(),
-                        signingDateStartSearch, signingDateStart,
-                        signingDateEndSearch, signingDateEnd
-                );
-                return new ApiResponse(true, "Success", mraInfo);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return new ApiResponse(false, "Could not get mra info because " + ex.getMessage());
-        }
-    }
-
-    public ApiResponse getReport(RequestDto mraDto) {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatPattern);
-
-            int agreementTypeIdSearch = 0;
-            int accessTypeIdSearch = 0;
-            int countryIdSearch = 0;
-            int nameOfOrganizationSearch = 0;
-            int signingDateStartSearch = 0;
-            int signingDateEndSearch = 0;
-            String nameOfOrganization = null;
-
-            if (Objects.isNull(mraDto.getAgreementTypeId())) {
-                agreementTypeIdSearch = 1;
-                mraDto.setAgreementTypeId(1L);
-            }
-
-            if (Objects.isNull(mraDto.getAccessTypeId())) {
-                accessTypeIdSearch = 1;
-                mraDto.setAccessTypeId(1L);
-            }
-
-            if (Objects.isNull(mraDto.getCountryId())) {
-                countryIdSearch = 1;
-                mraDto.setCountryId(1L);
-            }
-
-            if (StringUtils.isNotEmpty(mraDto.getNameOfOrganization())) {
-                nameOfOrganization = mraDto.getNameOfOrganization().toLowerCase();
-            } else {
-                nameOfOrganizationSearch = 1;
-            }
-
-            LocalDateTime signingDateEnd = LocalDateTime.now();
-            LocalDateTime signingDateStart = LocalDateTime.now();
-
-            if (StringUtils.isEmpty(mraDto.getSigningDateFrom())) {
-                signingDateStartSearch = 1;
-                mraDto.setSigningDateFrom(String.valueOf(LocalDateTime.now()));
-            } else {
-                try {
-                    signingDateStart = LocalDateTime.parse(mraDto.getSigningDateFrom(), formatter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (StringUtils.isEmpty(mraDto.getSigningDateTo())) {
-                signingDateEndSearch = 1;
-                mraDto.setSigningDateTo(String.valueOf(LocalDateTime.now()));
-            } else {
-                try {
-                    signingDateEnd = LocalDateTime.parse(mraDto.getSigningDateTo(), formatter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            List<MraDto> mraDtoList = mraRepository.getMraReport(
-                    agreementTypeIdSearch, mraDto.getAgreementTypeId(),
-                    nameOfOrganizationSearch, nameOfOrganization,
-                    countryIdSearch, mraDto.getCountryId(),
-                    accessTypeIdSearch, mraDto.getAccessTypeId(),
-                    signingDateStartSearch, signingDateStart,
-                    signingDateEndSearch, signingDateEnd
-            );
-
-            return new ApiResponse(true, "Success", mraDtoList);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return new ApiResponse(false, "Could not get mra report because " + ex.getMessage());
-        }
-    }
-
-
- ## 7. **search REST DTO Spring boot**
-
-    public class RequestDto {
-    private Long agreementTypeId;
-    private String nameOfOrganization;
-    private String subjectEnglish;
-    private Long countryId;
-    private Long accessTypeId;
-    private String signingDateFrom;
-    private String signingDateTo;
-    private String signatureDate;
-    private Integer size;
-    private Integer page;
-    private String sortingKey;
-    private String sortingValue;
-}
-
- ## 7. **search REST Repository Spring boot**
-@Query(value = "SELECT DISTINCT m.id as id, " +
-            "ag.agreement_type as agreementType, " +
-            "m.subject_english as subjectEnglish, " +
-            "m.name_of_organization_english as nameOfOrganizationEnglish , " +
-            "m.date_of_signature as dateOfSignature, " +
-            "c.country as country " +
-            "FROM mra m " +
-            "LEFT JOIN country c ON m.country_id = c.id " +
-            "LEFT JOIN attachment a ON m.id = a.mra_id " +
-            "LEFT JOIN agreement_type ag ON m.agreement_type_id = ag.id " +
-            "WHERE (1 = :agreementTypeIdSearch OR m.agreement_type_id = :agreementTypeId) " +
-            "AND (1 = :nameOfOrganizationSearch OR LOWER(m.name_of_organization_english) LIKE CONCAT('%', CAST(:nameOfOrganization AS text), '%')) " +
-            "AND (1 = :countryIdSearch OR m.country_id = :countryId) " +
-            "AND (1 = :subjectEnglishSearch OR LOWER(m.subject_english) LIKE CONCAT('%', CAST(:subjectEnglishh AS text), '%')) " +
-            "AND (1 = :signingDateStartSearch OR CAST(m.date_of_signature AS DATE) >= CAST(:signingStartDate AS DATE)) " +
-            "AND (1 = :signingDateEndSearch OR CAST(m.date_of_signature AS DATE) <= CAST(:signingEndDate AS DATE)) ", nativeQuery = true)
-    Page<Dto> findAllMra(Pageable pageable,
-                            @Param("agreementTypeIdSearch") int agreementTypeIdSearch,
-                            @Param("agreementTypeId") Long agreementTypeId,
-                            @Param("nameOfOrganizationSearch") int nameOfOrganizationSearch,
-                            @Param("nameOfOrganization") String nameOfOrganization,
-                            @Param("countryIdSearch") int countryIdSearch,
-                            @Param("countryId") Long countryId,
-                            @Param("subjectEnglishSearch") int subjectEnglishSearch,
-                            @Param("subjectEnglishh") String subjectEnglishh,
-                            @Param("signingDateStartSearch") int signingDateStartSearch,
-                            @Param("signingStartDate") LocalDateTime signingStartDate,
-                            @Param("signingDateEndSearch") int signingDateEndSearch,
-                            @Param("signingEndDate") LocalDateTime signingEndDate
-    );
-
- ## 8. **Thank you**
+```
