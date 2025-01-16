@@ -66,7 +66,7 @@ author: Noor
         let rendition;
 
         // Load a static EPUB file
-        const staticFileUrl = 'D:\document\BOOKS\ebook\Introduction-to-Docker-A-Beginner_s-Guide.epub';
+        const staticFileUrl = 'ebook\Introduction-to-Docker-A-Beginner_s-Guide.epub';
         const book = ePub(staticFileUrl);
         rendition = book.renderTo(epubContainer, {
             width: '100%',
