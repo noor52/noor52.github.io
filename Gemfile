@@ -2,6 +2,8 @@
 gem 'tzinfo'
 gem 'bigdecimal'
 gem 'tzinfo-data'
+gem 'csv'
+gem 'base64'
 
 
 
