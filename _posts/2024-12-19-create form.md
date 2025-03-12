@@ -18,7 +18,12 @@ author: Noor
 <div class="card">
   <div class="ng-Header col-xs-12">
     <i nz-icon nzType="form" nzTheme="outline"></i>
-    {{ isEditMode ? "Update MRA/MOU" : "Create MRA/MOU" }}
+   {% if isEditMode %}
+  Update MRA/MOU
+{% else %}
+  Create MRA/MOU
+{% endif %}
+
   </div>
   <div class="searchboxAerar pt-4">
     <form nz-form [formGroup]="mraMouForm" (ngSubmit)="submitForm()">
