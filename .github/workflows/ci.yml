@@ -5,7 +5,7 @@ on:
   push:
     branches: ["main"]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Allows manual execution from the Actions tab
   workflow_dispatch:
 
 jobs:
@@ -14,31 +14,44 @@ jobs:
     name: Build Jekyll
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
-      - name: Install dependencies
-        run: bundle install && bundle exec appraisal install
+
+      - name: Install Bundler and dependencies
+        run: |
+          gem install bundler
+          bundle install
+          gem install appraisal
+          bundle exec appraisal install
+
       - name: Setup Pages
         id: configure-pages
         uses: actions/configure-pages@v5
+
       - name: Setup CI config
         run: |
           echo "---" > _config_ci.yml
           echo "baseurl: ${{ steps.configure-pages.outputs.base_path }}" >> _config_ci.yml
-      - name: Build site
+
+      - name: Build Jekyll site
         env:
           JEKYLL_ENV: production
         run: bundle exec appraisal jekyll build --future --config _config_ci.yml,_config.yml
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
   # Deployment job
   deploy:
-    name: Deploy Jekyll site to Pages
+    name: Deploy Jekyll site to GitHub Pages
     environment:
       name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -51,8 +64,7 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allow only one concurrent deployment but do NOT cancel in-progress runs
 concurrency:
-  group: "pages"
+  group: "pages-deployment"
   cancel-in-progress: false
