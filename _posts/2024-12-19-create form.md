@@ -23,7 +23,6 @@ author: Noor
 {% else %}
   Create MRA/MOU
 {% endif %}
-
   </div>
   <div class="searchboxAerar pt-4">
     <form nz-form [formGroup]="mraMouForm" (ngSubmit)="submitForm()">
@@ -538,7 +537,13 @@ author: Noor
                   .addFormSaveButtonPermission
               ">
               <i nz-icon nzType="save" nzTheme="fill"></i>
-              {{ isEditMode ? "Update" : "Save" }}
+              {% if isEditMode %}
+  Update
+{% else %}
+  Save
+{% endif %}
+
+
             </button>
           </div>
         </div>
@@ -569,7 +574,11 @@ author: Noor
               <div class="col-xs-12 col-sm-12">
                 <button type="submit" class="btn btn-success active btn-lg btn-block cari border-redius">
                   <i nz-icon nzType="save" nzTheme="fill"></i>
-                  {{ isEditMode ? "Update" : "Submit" }}
+                  {% assign buttonText = "Save" %}
+{% if isEditMode %}
+  {% assign buttonText = "Update" %}
+{% endif %}
+{{ buttonText }}
                 </button>
               </div>
             </div>
